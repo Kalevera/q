@@ -67,15 +67,17 @@ function makeMe(req,res,supersecret){
 module.exports = function(app) {
     app.use(function(req, res, next) {
 //check if the request has a token or if the request has an associated username
-         if(!req.body.token){
+         if(!req.body.token||!req.headers.cookie){
+             console.log('no cookies were found')
             //make a token and attach it to the body
-            var token = jwt.sign(req.body.user_name,app.get('superSecret'), {
+            var token = jwt.sign(shortid.generate(),app.get('superSecret'), {
                 expiresInMinutes: 1 // expires in 1 mintue can be what ever you feel is neccessary
             });
-            req.body.token = token; // this happens every time setting the expiratino to 1 minute
+            req.body.token = token; // this adds a token to the body. every time setting the expiration to 1 minute
+              res.cookie('austin.nodeschool' , token) //this sets the cookie on the window to the string rv3.co
          }
         if(!req.body.user_name){
-             res.status(403).send('request has no username')
+             res.status(403).send('request has no username')//this is here because I want the req to be associated with a user name in the logs could be something else could be nothing depeing on the needs.
          }
         next()
     });
