@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  div.turnOn(ng-controller="mapController", ng-init="checked=true")
+    div.gpsConsent(ng-show="checked",ng-click="checked=false")
+      h2 by enabling gps you consent to our terms of service and privacy policy
+      button#consentBtn(class="btn btn-primary btn-lg", ng-click="setGPS()") Activate GPS
+    div.mapContainer#mapContainer
+        div#myMap(style='padding:0; height: 800px; width:100%;')
+
+
+
+

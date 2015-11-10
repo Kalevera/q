@@ -1,0 +1,35 @@
+<div class='jumbotron row'>
+    <div class='col-6'>
+        <image style="width:100px;height :auto; " class="img-rounded logo" src="../images/p.jpg"></image>
+    </div>
+    <div class='jumboContent col-6'>
+        <title>Chef of the Day</title>
+        <h1 >Welcome to Chef of the Day</h1>
+
+        <p>MEAN Stack mini app attaching a JSON webtoken.</p>
+        <br><center>
+        <p> The MEAN stack utalizes the following technologies.
+            <image class="ego" src="https://www.gstatic.com/images/branding/product/1x/maps_64dp.png "></image>
+            ,<image class="ego" src="https://angularjs.org/img/AngularJS-large.png"></image>
+            ,<image style="background-color= black;" class="ego" src="https://nodejs.org/static/images/logos/nodejs-green.png"></image>,
+            <image class="ego" src="https://upload.wikimedia.org/wikipedia/en/e/eb/MongoDB_Logo.png"></p></center><br>
+        <p>Austin Node School <a href="https://twitter.com/theoneravenous">TheOneRavenous</a></p>
+        <h2 id="jumboHOne">Login to the sample app and see it retrieve local storage</h2>
+    </div>
+</div>
+<div href="#login" id ="userlogin" class="login">
+  <form id="loginForm" novalidate>
+    <h1>Austin Node School JSONwebtoken</h1>
+    <fieldset class="form-group">
+      <label> User Name:
+        <input type ="text" name="userName" ng-model="user.user_name" ng-model-options="{getterSetter: true}"class="form-control" placeholder="name" title="User" required/>
+      </label>
+      <label> Password:
+        <input type ="password" name="userpassword"ng-model="user.password" ng-model-options="{getterSetter: true}" class="form-control" placeholder="password" title="password" required/>
+          <p style="color:red;">{{userResponse}}</p>
+      </label>
+      <button class="btn btn-primary btn-lg" id="join" ng-disabled="loginForm.$invalid" ng-click="login(user)">login</button>
+        <li class="btn btn-primary btn-lg" ><a href="/u/signup">sign up</a></li>
+    </fieldset>
+  </form>
+</div>

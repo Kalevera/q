@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html id="myApp" ng-app="mainRoom">
+    <head>
+        <link rel="icon"
+              type="image/png"
+              href="./images/myicon.png" />
+        <meta charset="UTF-8">
+        <meta author="Roberto @TheOneRavenous">
+        <meta contact=" roberto.vega87@gmail.com">
+        <meta keywords="Austin Nodeschool MEAN stack and webtokens">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <base href="/">
+        <title>al Fresco</title>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/stylesheets/handheld.css" type="text/css" media="handheld, (max-heighth:600px)(max-width:800px)">
+        <link rel="stylesheet" type="text/css" href="./stylesheets/application.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.js"></script>
+        <script type="text/javascript", src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.js"></script>
+    </head>
+    <center>
+        <body>
+            <div class="container-fluid" ng-controller="mu">
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                    <div class = "row">
+                        <div class="col-xs-6">
+                            <div class="navbar-header" >
+                                <a class="navbar-brand" ng-click="muToggle()" href="/u/main">Chef</a>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="menubtns">
+                                <ul class="nav navbar-nav" ng-click="muToggle()" ng-init="mState=true">
+                                    <li id="menu"><a href="#"  ></a></li>
+                                    <li id="muHome"  ng-hide="mState"><a href="/u/main"> Home</a></li>
+                                    <li id="muProfile" ng-hide="mState"><a href="/u/profile">Profile</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="contentView" ng-view></div>
+        </body>
+        </center>
+            <script  type="text/javascript" src="../js/me.js"> </script>
+            <script  type="text/javascript" src="../js/auService.js"> </script>
+            <script type="text/javascript" src="../js/mu.js"></script>
+            <script type="text/javascript" src="../js/userService.js"></script>
+            <script type="text/javascript" src="../js/userController.js"></script>
+            <script type="text/javascript" src="../js/front_end.js"></script>
+            </html>

@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  div.turnOn#userlogin(ng-controller="userController")
+    form
+       h1 Step Into The Kitchen
+       fieldset.form-group
+         label User Name:
+         input.form-control(type ="text", name="userName", ng-model="user.u", ng-model-options="{getterSetter: true}", placeholder="username or email", title="User" required)
+         label Password:
+         input.form-control(type ="password", name="userpassword", ng-model="user.password", ng-model-options="{getterSetter: true}", placeholder="password" title="password" required)
+         button(class="btn btn-primary btn-lg" id="join" ng-click="authUser(user)") login
+         ul
+           li
+             a(href="/u/signup") sign up
+

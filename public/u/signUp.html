@@ -1,0 +1,23 @@
+<div class='jumbotron'>
+    <div id ="signUp" class="login">
+        <form id="signupForm" noValidate>
+            <h1>Step Into The Kitchen</h1>
+            <fieldset class="form-group">
+                <label> User Name:
+                    <input type ="text" name="userName" ng-model="user.user_name" ng-model-options="{getterSetter: true}"class="form-control" placeholder="name" title="User" required/>
+                    <p style="color:red;">{{userResponse}}</p>
+                </label>
+                <label> Password:
+                    <input type ="password" name="userpassword"ng-model="user.password" ng-model-options="{getterSetter: true}" class="form-control" placeholder="password" title="password" required/>
+                </label>
+                <label> e-mail:
+                    <input type ="e-mail" name="usereEmail" ng-model="user.email"  ng-model-options="{getterSetter: true}" class="form-control" placeholder="What's your e-mail?" title="email" required/>
+                </label>
+                <label> Location:
+                    <input type ="text" name="userLoc" ng-model="user.location" ng-model-options="{getterSetter: true}" class="form-control" placeholder="Enter the City" title="location" required/>
+                </label>
+                <button class="btn btn-primary btn-lg" id="join" ng-disabled="signupForm.$invalid" ng-click="createUser(user)">Step into the kitchen</button>
+            </fieldset>
+        </form>
+    </div>
+</div>

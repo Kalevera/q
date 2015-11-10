@@ -1,0 +1,116 @@
+/* mobile styles */
+@media screen
+  and (device-width: 360px)
+  and (device-height: 640px)
+  and (-webkit-device-pixel-ratio: 3) {
+      html body .contentView{
+          height:100%;
+      }
+
+}
+
+/* Portrait */
+@media screen
+  and (device-width: 360px)
+  and (device-height: 640px)
+  and (-webkit-device-pixel-ratio: 3)
+  and (orientation: portrait) {
+
+}
+
+/* Landscape */
+@media screen
+  and (device-width: 360px)
+  and (device-height: 640px)
+  and (-webkit-device-pixel-ratio: 3)
+  and (orientation: landscape) {
+
+@media handheld, (max-width:900px){
+    .col-xs-6 {
+    padding: 0px;
+    margin: 0px;
+}
+.container-fluid {
+     padding: 0px;
+    margin: 0px;
+}
+  .contentView{
+    position:relative;
+    top:25px;
+    width:100%;
+    height:100%;
+  }
+  #splashGPS{
+    width:100%;
+    height: auto;
+}
+  #userlogin{
+    background-color:rgba(254,000,137,0.25);
+    /*background-image: url("../images/bgy.png");
+    background-repeat: no-repeat;
+    background-size: 100%;*/
+    min-width:90%;
+    padding-top:50px;
+    padding-left:24px;
+    padding-right:24px;
+  }
+  #mymap{
+    width:100%;
+    height:550px;
+  }
+	html, body {
+    background-color:;
+		font: 12px/15px sans-serif;
+		color: #000;
+		margin: 0;
+		}
+	#sidebar, #footer {
+		display: none;
+		}
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: normal;
+		}
+	#content img {
+		max-width: 250px;
+		}
+	.center {
+		width: 100% !important;
+		text-align: center;
+		}
+	a:link, a:visited {
+		text-decoration: underline;
+		color: #0000CC;
+		}
+	a:hover, a:active {
+		text-decoration: underline;
+		color: #660066;
+		}
+
+}
+.mapContainer{
+position:relative;
+    top:50px;
+}
+.dishList{
+  position:relative;
+  width:100%;
+  top:50px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.list-group-item{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 0px;
+  margin-right: 0px;
+  width:80%;
+  padding: 12px;
+}
+/* iPhone-specific styles */
+@media only screen and (max-device-width: 480px) {
+
+	html {
+		-webkit-text-size-adjust: none;
+		}
+
+}
