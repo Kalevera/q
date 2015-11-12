@@ -22,7 +22,13 @@ function checkMe(req,res,supersecret){
         if(err)res.status(500).send('Problem with the system try again later');
         if(!doc){
             return res.status(404).send('username not found');
-        }else if(req.body.token !== doc.access_token){
+        }else if(req.headers.token !== doc.access_token){
+            // if the tokens don't match update the database with the token
+            doc.access_token = req.headers.token
+            doc.save(function (err) {
+                if (err) return handleError(err);
+                return res.json(doc);
+            });
             return res.status(403).send('your token has expired')
         }else{
             console.log('cool the tokens still match')
@@ -34,7 +40,7 @@ function checkMe(req,res,supersecret){
 function makeMe(req,res,supersecret){
     var vail = req.body.user_name.toUpperCase();
     User.findOne({vail:vail},'user_name email', function(err,doc){
-        if(err)res.status(500).send('Problem with the system tyr again later').end();
+        if(err)res.status(500).send('Problem with the system try again later').end();
         if(!doc){
             User.findOne({email:req.body.email},'email', function(err,doc){
                 if(err)throw err;
