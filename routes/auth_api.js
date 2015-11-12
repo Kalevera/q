@@ -67,19 +67,37 @@ function makeMe(req,res,supersecret){
 module.exports = function(app) {
     app.use(function(req, res, next) {
 //check if the request has a token or if the request has an associated username
-         if(!req.body.token||!req.headers.cookie){
-             console.log('no cookies were found')
+         if(!req.headers.cookie){ //req.body.token could be added if you are passing a toke as a payload
             //make a token and attach it to the body
-            var token = jwt.sign(shortid.generate(),app.get('superSecret'), {
-                expiresInMinutes: 1 // expires in 1 mintue can be what ever you feel is neccessary
+            console.log('no cookies were found')
+            req.body.token = token // this is just placing the cookie as a payload
+            var token = jwt.sign({user_token_name:req.body.user_name},app.get('superSecret'), {
+                expiresIn: 1 // expires in 1 mintue can be what ever you feel is neccessary
             });
-            req.body.token = token; // this adds a token to the body. every time setting the expiration to 1 minute
-              res.cookie('austin.nodeschool' , token) //this sets the cookie on the window to the string rv3.co
+             res.cookie('austin.nodeschool' , token,{ maxAge: 1000, httpOnly: true }) //this sets the cookie to the string rv3.co
          }
         if(!req.body.user_name){
-             res.status(403).send('request has no username')//this is here because I want the req to be associated with a user name in the logs could be something else could be nothing depeing on the needs.
+             res.status(403).send('request has no username')
          }
         next()
+    },function(req, res, next) {
+//    console.log(req.headers)  this is here to show you the avilable headers to parse through and to have a visual of whats being passed to this function
+        console.log('second')
+            if(req.headers.cookie){
+                console.log(req.headers.cookie) //the cookie has the name of the cookie
+                var equals = '=';
+                var inboundCookie = req.headers.cookie
+                var cookieInfo = splitCookie(inboundCookie,equals)
+                console.log(cookieInfo)
+               var decoded = jwt.verify(cookieInfo[1], app.get('superSecret'));
+                //var decoded = jwt.verify(cookieInfo[1], app.get('superSecret'));
+                console.log(decoded)
+                // You could check to see if there is an access_token in the database if there is one
+                // see if the decoded content still matches. If anything is missing issue a new token
+                // set the token in the database for later.
+            }
+    next()
+
     });
     app.post('/js/login', parser, function(req,res){
         console.log('made it to auth_api')

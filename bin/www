@@ -21,7 +21,7 @@ var options = {
 /**
  * Get port from environment and store in Express. HTTP requests
  */
- var host = process.env.HOST || '0.0.0.0';
+ var host = process.env.HOST || '127.0.0.1';
  var db = process.env.DATABASE || 'mongodb://127.0.0.1:27017/test';
   var port = normalizePort(process.env.PORT || '3000');
     app.set('host', host);
