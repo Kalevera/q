@@ -3,9 +3,9 @@ html
     head
       title= title
       meta(charset="UTF-8")
-      meta(author="Christian @Some Twitter Account, Roberto @TheOneRavenous")
+      meta(author="Roberto twitter @TheOneRavenous")
       meta(contact=" roberto.vega87@gmail.com")
-      meta(keywords="Chef, Networking, Chef Networking, kitchen, home, work")
+      meta(keywords="Austin Nodeschool")
       meta(name="viewport" content="width=device-width, initial-scale=1")
       link(rel="icon"
         type="image/png"
@@ -24,7 +24,7 @@ html
               div.container-fluid
                 div.col-xs-6
                   div.navbar-header
-                    a(class="navbar-brand",href="/") Chef du Jour
+                    a(class="navbar-brand",href="/") Austin Node School
                 div.col-xs-6
                   div.menubtns
                     ul(class="nav navbar-nav")
@@ -32,11 +32,7 @@ html
                         a(href="#", ng-click="menu=flase",ng-init="menu=true")
                       li#muHome(ng-hide="menu")
                         a(href="/u") Home
-                      li#muMap(ng-hide="menu")
-                        a(href="/u/map") Map
                       li#muKitchens(ng-hide="menu")
-                        a(href="/u/kitchens") Kitchens
-                      li#muProfile(ng-hide="menu")
                         a(href="/u/profile") Profile
           block content
          div(ng-view)

@@ -12,7 +12,7 @@ oToken.use(function(req, res, next) {
 
 });
 
-oToken.post('/O/', function(req, res, next) {
+oToken.get('/O/', function(req, res, next) {
         console.log(__dirname)
         res.render('index.html',function(err,html){
       res.send(html);

@@ -9,7 +9,7 @@ var express = require('express'),
 
 var refreshDirect = require('./routes/re'), // since this is linked to an angular SPA this will redirect traffic to the landing page of the SPA
     // refresh redirect doesn't handle all refresh calls or direct calls to server.
-    token = require('./config/token'), // this is here to add routes to manipulate for the presentation currently not being used
+    token = require('./routes/token'), // this is here to add routes to manipulate for the presentation currently not being used
     routes = require('./routes/index'); // this is here to add routes to manipulate for the presentation currently not being used
 
 var  app = express();
