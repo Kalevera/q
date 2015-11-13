@@ -27,7 +27,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/u/', refreshDirect);
 
-var auth_api = require('./routes/auth_api')(app);
+var auth_api = require('./routes/auth_api')(app),
+     user_api = require('./routes/user_api')(app); // this will be affected by the middleware in authapi.
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

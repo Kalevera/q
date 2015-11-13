@@ -18,18 +18,17 @@ function getMe(req,res){
 };
 function checkMe(req,res,supersecret){
     var vail = req.body.user_name.toUpperCase();
-    User.findOne({vail:vail},'geo avatar email access_token', function(err,doc){
+    User.findOne({vail:vail},'geo avatar email token', function(err,doc){ // broken needs to check acces token
         if(err)res.status(500).send('Problem with the system try again later');
         if(!doc){
             return res.status(404).send('username not found');
-        }else if(req.headers.token !== doc.access_token){
-            // if the tokens don't match update the database with the token
-            doc.access_token = req.headers.token
+        }else if(req.headers.cookie !== doc.token){
+            doc.token = req.headers.cookie // this isn't quite right because it's saving the cookie name needs to be split. to only update the token
             doc.save(function (err) {
                 if (err) return handleError(err);
                 return res.json(doc);
             });
-            return res.status(403).send('your token has expired')
+            return res.status(403).send('your token has expired login again') // this actually needs to update the users access_token and needs to check if the token is expired.
         }else{
             console.log('cool the tokens still match')
             console.log(doc)
@@ -46,18 +45,20 @@ function makeMe(req,res,supersecret){
                 if(err)throw err;
                 if(!doc){
                     var vail = req.body.user_name.toUpperCase();
-                    var pswd = cryptic(req.body.password)
-                    var salt = cryptic(shortid.generate())
-                    var truePass = cryptic(pswd+salt)
-                    var token = jwt.sign(req.body.user_name, supersecret, {
-                        expiresInMinutes: 1440 // expires in 24 hours
+                    var pswd = cryptic(req.body.password);
+                    var salt = cryptic(shortid.generate());
+                    var truePass = cryptic(pswd+salt);
+                    var rando    = shortid.generate();
+                    var token = jwt.sign(rando, supersecret, { // this is here to only create the access_token for the first time.
+                        expiresIn: 1440 // expires in 10min
                     });
                     console.log("email not registered")
-                    User.create({geo:{user_name:req.body.user_name,location:req.body.location},access_token:token ,salt:salt,password:truePass, email:req.body.email,vail:vail},function(err,doc){
+                    User.create({token:token ,salt:salt,password:truePass, email:req.body.email,vail:vail, geo:{user_name:req.body.user_name,location:req.body.location}},function(err,doc){
                         if(err){
                             return res.status(500).send('Problem saving your profile');
                         }else{
-                            return   res.json(doc)
+                            res.cookie('austin.nodeschool',token)
+                            return res.json(doc)
                         }
                     });
                 }else{
@@ -70,27 +71,40 @@ function makeMe(req,res,supersecret){
         }
     })
 };
+// Sperator will be equal sign, based on whats being passed
+function splitCookie(cookieToSplit, separator){
+    var cookieinfo = cookieToSplit.split(separator);
+    return cookieinfo
+}
 module.exports = function(app) {
-    app.use(function(req, res, next) {
+    app.post('/js/signup', parser, function(req,res){
+        console.log('made it to signup')
+        var supersecret = app.get('superSecret');
+        makeMe(req, res,supersecret);
+    });
+
+    app.use('/js/',function(req, res, next) {
 //check if the request has a token or if the request has an associated username
-         if(!req.headers.cookie){ //req.body.token could be added if you are passing a toke as a payload
+         if(!req.headers.cookie){
             //make a token and attach it to the body
             console.log('no cookies were found')
             req.body.token = token // this is just placing the cookie as a payload
             var token = jwt.sign({user_token_name:req.body.user_name},app.get('superSecret'), {
                 expiresIn: 1 // expires in 1 mintue can be what ever you feel is neccessary
             });
-             res.cookie('austin.nodeschool' , token,{ maxAge: 1000, httpOnly: true }) //this sets the cookie to the string rv3.co
+
+             res.cookie('austin.nodeschool' , token,{ maxAge: 100000, httpOnly: true }) //this sets the cookie to the string rv3.co
          }
-        if(!req.body.user_name){
-             res.status(403).send('request has no username')
+        if(req.body.user_name){
+             next()
+         }else{
+             res.send('request did not have a username').end()
          }
-        next()
     },function(req, res, next) {
 //    console.log(req.headers)  this is here to show you the avilable headers to parse through and to have a visual of whats being passed to this function
         console.log('second')
             if(req.headers.cookie){
-                console.log(req.headers.cookie) //the cookie has the name of the cookie
+                console.log(req.headers.cookie) //the cookie has the name of the cookie equal to the cookie.
                 var equals = '=';
                 var inboundCookie = req.headers.cookie
                 var cookieInfo = splitCookie(inboundCookie,equals)
@@ -103,15 +117,10 @@ module.exports = function(app) {
                 // set the token in the database for later.
             }
     next()
-
     });
-    app.post('/js/login', parser, function(req,res){
-        console.log('made it to auth_api')
+     app.post('/js/login', parser, function(req,res){
+        console.log('made it to login')
         var supersecret = app.get('superSecret');
         checkMe(req, res,supersecret);
-    });
-    app.post('/js/signup', parser, function(req,res){
-        var supersecret = app.get('superSecret');
-        makeMe(req, res,supersecret);
     });
 };

@@ -7,7 +7,7 @@ var UserSchema = new Schema({
     email: {type: String,required:true},
     avatar:{type:String, default: '../images/marker.svg'},
     vail:{type:String},
-    access_token:{type:String},
+    token:{type:String},
     role:{type:String, default:"guest"},
     u_created:{type: Date, default: Date.now},
     u_updated:{type: Date, default: Date.now},
