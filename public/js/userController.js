@@ -1,7 +1,7 @@
 (function(){
     'use strict'
     var userCtrl = angular.module("userController",[]);
-    userCtrl.controller('userController', ['$window','$scope','$location','$http','Users','Maping','Auth',function($window,$scope,$location,$http,Users,Maping,Auth){
+    userCtrl.controller('userController', ['$window','$scope','$location','$http','Users','Auth',function($window,$scope,$location,$http,Users,Auth){
         var home;
         $scope.me = Users.getMe();
         if($scope.me){

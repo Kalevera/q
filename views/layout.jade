@@ -3,6 +3,7 @@ html
     head
       title= title
       meta(charset="UTF-8")
+      base(href="/")
       meta(author="Roberto twitter @TheOneRavenous")
       meta(contact=" roberto.vega87@gmail.com")
       meta(keywords="Austin Nodeschool")
@@ -24,15 +25,15 @@ html
               div.container-fluid
                 div.col-xs-6
                   div.navbar-header
-                    a(class="navbar-brand",href="/") Austin Node School
+                    a(class="navbar-brand",ng-click="muToggle()",href="/") Austin Node School
                 div.col-xs-6
                   div.menubtns
                     ul(class="nav navbar-nav")
                       li#menu
-                        a(href="#", ng-click="menu=flase",ng-init="menu=true")
-                      li#muHome(ng-hide="menu")
+                        a(ng-click="muToggle()",ng-init="mState=true")
+                      li#muHome(ng-click="muToggle()",ng-hide="mState")
                         a(href="/u") Home
-                      li#muKitchens(ng-hide="menu")
+                      li#muKitchens(ng-click="muToggle()",ng-hide="mState")
                         a(href="/u/profile") Profile
           block content
          div(ng-view)

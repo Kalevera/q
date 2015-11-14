@@ -1,6 +1,6 @@
 (function(){
     'use strict'
-    var angularApp = angular.module("mainRoom",['auService','me','userService','mu','userController','ngResource','ngRoute']);
+    var angularApp = angular.module("mainRoom",['auService','userService','mu','userController','ngResource','ngRoute']);
     angularApp.controller('mainCtrl', ['$scope', 'Auth', '$location', function ($scope, Auth, $location) {
         $scope.$watch(Auth.isLoggedIn, function (value, oldValue) {
             if(!value && oldValue) {

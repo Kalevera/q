@@ -4,7 +4,7 @@ var locals = require('mainLocals');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index.html',locals(),function(err,html){
+  res.render('index',locals(),function(err,html){
       res.send(html);
   });
 });

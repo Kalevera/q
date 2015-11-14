@@ -110,7 +110,7 @@ module.exports = function(app) {
                 var cookieInfo = splitCookie(inboundCookie,equals)
                 console.log(cookieInfo)
                var decoded = jwt.verify(cookieInfo[1], app.get('superSecret'));
-                //var decoded = jwt.verify(cookieInfo[1], app.get('superSecret'));
+                
                 console.log(decoded)
                 // You could check to see if there is an access_token in the database if there is one
                 // see if the decoded content still matches. If anything is missing issue a new token
