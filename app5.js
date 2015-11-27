@@ -1,15 +1,15 @@
 var express = require('express'),
     helmet = require('helmet'),
     path = require('path'),
-    favicon = require('serve-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
+     token = require('./config/token'), // this is here to make it easy to change the server token secret
     mongoose =require('mongoose');
 
 var refreshDirect = require('./routes/re'), // since this is linked to an angular SPA this will redirect traffic to the landing page of the SPA
     // refresh redirect doesn't handle all refresh calls or direct calls to server.
-    token = require('./routes/token'), // this is here to add routes to manipulate for the presentation currently not being used
+
     routes = require('./routes/index'); // this is here to add routes to manipulate for the presentation currently not being used
 
 var  app = express();

@@ -5,6 +5,7 @@ var User = require('../model/user').User,
     fs = require('fs'),
     jwt = require ('jsonwebtoken'),
     cryptic = require('cryptic');
+
 function getMe(req,res){
     User.findOne({user_name:req.body.user_name},{user_name:1, password:1}, function(err,doc){
         if(err)throw err;
@@ -86,13 +87,14 @@ module.exports = function(app) {
     app.use('/js/',function(req, res, next) {
 //check if the request has a token or if the request has an associated username
          if(!req.headers.cookie){
-            //make a token and attach it to the body
+
             console.log('no cookies were found')
-            req.body.token = token // this is just placing the cookie as a payload
+
             var token = jwt.sign({user_token_name:req.body.user_name},app.get('superSecret'), {
                 expiresIn: 1 // expires in 1 mintue can be what ever you feel is neccessary
             });
-
+            //make a token and attach it to the body
+            //req.body.token = token // this is just placing the token as a payload
              res.cookie('austin.nodeschool' , token,{ maxAge: 100000, httpOnly: true }) //this sets the cookie to the string rv3.co
          }
         if(req.body.user_name){
@@ -104,16 +106,16 @@ module.exports = function(app) {
 //    console.log(req.headers)  this is here to show you the avilable headers to parse through and to have a visual of whats being passed to this function
         console.log('second')
             if(req.headers.cookie){
-                console.log(req.headers.cookie) //the cookie has the name of the cookie equal to the cookie.
+                console.log(req.headers.cookie) //the cookie has the name of the string passed to set the cookie.
                 var equals = '=';
                 var inboundCookie = req.headers.cookie
                 var cookieInfo = splitCookie(inboundCookie,equals)
                 console.log(cookieInfo)
                var decoded = jwt.verify(cookieInfo[1], app.get('superSecret'));
-                
+
                 console.log(decoded)
                 // You could check to see if there is an access_token in the database if there is one
-                // see if the decoded content still matches. If anything is missing issue a new token
+                // see if the decoded content still matches. If anything is missing issue a new token or push the user to login and delete the old token forcing them to renew the session
                 // set the token in the database for later.
             }
     next()

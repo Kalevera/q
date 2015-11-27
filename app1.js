@@ -1,19 +1,13 @@
 var express = require('express'),
-    path = require('path');
-
-var routes = require('./routes/index'); // this is here to add routes to manipulate for the presentation currently not being used
-
-var  app = express();
+    path = require('path'),
+    routes = require('./routes/index1'), // this is here to add routes to manipulate for the presentation currently not being used
+    app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 //route setup
 app.use('/', routes);
-
-
-
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -43,6 +37,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

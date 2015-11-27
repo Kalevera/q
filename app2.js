@@ -1,16 +1,15 @@
 var express = require('express'),
-
-
-var routes = require('./routes/index'); // this is the index route it will use jade render engine to show the page.
-
-var  app = express();
+    path = require('path'),
+    routes = require('./routes/index'), // this is the index route it will use jade render engine to show the page.
+    app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-
+//jade engine route
 app.use('/', routes);
+
 //middleware setup
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -42,6 +41,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

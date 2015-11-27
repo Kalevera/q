@@ -30,13 +30,6 @@
             })
         }
         $scope.loading = true;
-        function handleNoGeolocation(errorFlag) {
-            if (errorFlag) {
-                var content = 'Error: The Geolocation service failed.';
-            } else {
-                var content = 'Error: Your browser doesn\'t support geolocation.';
-            }
-        }
         $scope.login=function(user){
             if(!$scope.me || $scope.me !== user.user_name){
                 $scope.me = {
@@ -46,17 +39,6 @@
             }
             Users.getRemote($scope.me)
                 .success(function(data){
-                home = navigator.geolocation.getCurrentPosition(function(position) {
-                    if (!position){
-                        window.setTimeout(function(){
-                            console.log('waiting for gps')
-                        },1000)
-                    }else{
-                        Maping.setUserGPS(position.coords.latitude, position.coords.longitude)
-                    }
-                },  function() {
-                    handleNoGeolocation(true);
-                });
                 $scope.me = data;
                 console.log($scope.me);
                 Users.setMe($scope.me);

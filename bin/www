@@ -4,7 +4,20 @@
  * Module dependencies.
  */
 
-var app = require('../app1');
+//example 1
+//var app = require('../app1');
+//example 2
+//var app = require('../app2');
+//example 3
+//var app = require('../app3');
+//example 4
+//var app = require('../app4');
+//example 5
+//var app = require('../app5');
+//final configuration
+var app = require('../app');
+
+
 var debug = require('debug')('kitchen:server');
 var https = require('https');
 var http = require('http');

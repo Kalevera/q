@@ -1,8 +1,9 @@
-var User = require('../model/user').User, //mongoose schema model.
-    bodyParser = require('body-parser'),
-    parser = bodyParser.json();
+var User = require('../model/user').User;
+var testing = require('testing');//mongoose schema model.  ****** change semicolon to comma for example 5
+  //  bodyParser = require('body-parser'), uncomment for example 5
+   // parser = bodyParser.json();  uncomment for example 5
 function getUsers(res){
-	User.find('users',function(err, users){
+	User.find('users',{user_name:1, email:1, location:1},function(err, users){
 		// if there is an error retrieving, send the error. nothing after res.send(err) will execute
 		if (err){
 			res.send(err)
@@ -26,7 +27,7 @@ module.exports = function(app) {
 
 	// api ---------------------------------------------------------------------
 	// get all users Currently only used for dev comment out and delete for production
-	app.get('/js/user', function(req, res) {
+	app.get('/js/user', testing(),function(req, res) {
         //GET ALL USERS
 		// use mongoose to get all users in the database
 		getUsers(res);
@@ -34,7 +35,7 @@ module.exports = function(app) {
 
 
 	// check user and send back all users after creation
-	app.post('/js/user', parser, function(req, res,next) {
+	app.post('/js/user'/*, parser*/, function(req, res,next) {
         console.log(req.body)
 		var a = req.body.user_name,
 		    b = req.body.password;

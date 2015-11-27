@@ -19,6 +19,4 @@ refreshDirect.get('/u/', function(req, res, next) {
   });
     });
 
-
-
 module.exports = refreshDirect

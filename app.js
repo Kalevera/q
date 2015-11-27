@@ -1,15 +1,16 @@
 var express = require('express'),
     helmet = require('helmet'),
     path = require('path'),
-    favicon = require('serve-favicon'),
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
+    testing = require('testing'),
+    token = require('./config/token'),
     mongoose =require('mongoose');
 
 var refreshDirect = require('./routes/re'), // since this is linked to an angular SPA this will redirect traffic to the landing page of the SPA
     // refresh redirect doesn't handle all refresh calls or direct calls to server.
-    token = require('./routes/token'), // this is here to add routes to manipulate for the presentation currently not being used
+    oToken = require('./routes/token'), // this is here to add routes to manipulate for the presentation currently not being used
     routes = require('./routes/index'); // this is here to add routes to manipulate for the presentation currently not being used
 
 var  app = express();
@@ -26,6 +27,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use(testing({Key: 'value',Key1 : value, expiration: Date.now()}));
+app.use('/0/', oToken)
 app.use('/u/', refreshDirect); // any route which hits the server request containing /u/ at the top level will be redirected will not work if /a/u/ because /u/ is not at the top of the route request. It's labeled /u/ to represent basic user access in the route I chose this.
 
 var auth_api = require('./routes/auth_api')(app), // sets cookies makes token updates to the database and checks to see if the user can use the routes that are initialized below
